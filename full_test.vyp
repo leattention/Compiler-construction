@@ -1,0 +1,75 @@
+class Base : Object {
+    int val;
+    void init(void) {
+        this.val = 10;
+    }
+    int compute(int x) {
+        return this.val + x;
+    }
+    string tag(void) {
+        return "Base";
+    }
+}
+
+class Derived : Base {
+    int factor;
+    void initDerived(void) {
+        this.init();
+        this.factor = 3;
+    }
+    int compute(int x) {
+        return super.compute(x) * this.factor;
+    }
+    string tag(void) {
+        return "Derived(" + this.getClass() + ")";
+    }
+}
+
+int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+
+void main(void) {
+    // 1. Polymorphisme, super, getClass et cast
+    Base b;
+    Derived d;
+    d = new Derived;
+    d.initDerived();
+    b = d;
+    print(b.tag(), ":", b.compute(4), "\n"); // Attendu: Derived(Derived):42
+
+    Derived d2;
+    d2 = (Derived)b;
+    print("CastOK:", d2.factor, "\n"); // Attendu: CastOK:3
+
+    // 2. Chaines : length, subStr, concatenation, comparaison, int->string
+    string s1, s2, sub;
+    s1 = "Compiler";
+    s2 = "2026";
+    sub = subStr(s1 + s2, 3, 6);
+    print("Len:", length(s1), " Sub:", sub, " IntStr:", (string)(0 - 42), "\n");
+    // Attendu: Len:8 Sub:piler2 IntStr:-42
+
+    if ("abc" < "abd" && "xyz" == "xyz" && !(1 == 2)) {
+        print("CmpOK\n"); // Attendu: CmpOK
+    } else {
+        print("CmpFAIL\n");
+    }
+
+    // 3. Boucle while + variables locales de bloc + recursivite
+    int i, sum;
+    i = 1;
+    sum = 0;
+    while (i <= 5) {
+        int tmp;
+        tmp = i * 2;
+        sum = sum + tmp;
+        i = i + 1;
+    }
+    print("While:", sum, " Fact5:", factorial(5), "\n");
+    // Attendu: While:30 Fact5:120
+}

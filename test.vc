@@ -1,0 +1,3 @@
+#! /bin/vypint
+# VYPcode: 1.0
+WRITES "Hello\n"

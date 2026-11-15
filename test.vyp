@@ -1,0 +1,17 @@
+class Shape : Object {
+    int id;
+    string getName(void) { return "Shape"; }
+}
+class Rect : Shape {
+    string getName(void) {
+        this.id = 42;
+        return super.getName() + ":Rect:" + (string)this.id;
+    }
+}
+void main(void) {
+    Shape s;
+    Rect r;
+    r = new Rect;
+    s = r;
+    print(s.getName(), "\n");
+}
